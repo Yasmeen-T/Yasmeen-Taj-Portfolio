@@ -1,125 +1,172 @@
-import React, { useState, useEffect } from 'react';
-import { Terminal, Menu, X, FileText, Github, Linkedin, Mail, ExternalLink, Sparkles } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
+import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
+import { Language } from '../types';
+import { GMAIL_COMPOSE_URL } from '../data/portfolioData';
+import { 
+  Code2, 
+  Sun, 
+  Moon, 
+  Globe, 
+  Mail, 
+  FileText, 
+  Menu, 
+  X,
+  Sparkles
+} from 'lucide-react';
 
 interface HeaderProps {
   onOpenResume: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenResume }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-
-      const sections = ['hero', 'skills', 'experience', 'projects', 'leadership', 'contact'];
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
 
   const navLinks = [
-    { name: 'About', href: '#hero' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Leadership', href: '#leadership' },
-    { name: 'Contact', href: '#contact' },
+    { href: "#about", label: t("nav.about") },
+    { href: "#skills", label: t("nav.skills") },
+    { href: "#experience", label: t("nav.experience") },
+    { href: "#projects", label: t("nav.projects") },
+    { href: "#leadership", label: t("nav.leadership") },
+    { href: "#contact", label: t("nav.contact") },
   ];
 
+  const languages: { code: Language; label: string; flag: string }[] = [
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'kn', label: 'ಕನ್ನಡ', flag: '🇮🇳' },
+    { code: 'hi', label: 'हिंदी', flag: '🇮🇳' },
+    { code: 'tr', label: 'Türkçe', flag: '🇹🇷' },
+    { code: 'es', label: 'Español', flag: '🇪🇸' },
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+    { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+    { code: 'ja', label: '日本語', flag: '🇯🇵' },
+  ];
+
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80 shadow-lg shadow-black/20 py-3'
-          : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo / Brand */}
-          <a
-            href="#hero"
-            className="flex items-center gap-2 group text-slate-100 font-bold text-lg tracking-tight"
-          >
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500 to-violet-600 p-[1px] flex items-center justify-center shadow-sm group-hover:shadow-cyan-500/25 transition-all">
-              <div className="w-full h-full bg-slate-950 rounded-[7px] flex items-center justify-center">
-                <Terminal className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold tracking-tight group-hover:text-cyan-400 transition-colors">
-                Yasmeen Taj
-              </span>
-              <span className="text-[10px] text-slate-400 font-mono font-normal">
-                backend.aws.ai
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 dark:bg-black/80 light:bg-white/90 border-b border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        
+        {/* Brand Logo */}
+        <a href="#" className="flex items-center gap-3 group">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
+            <div className="w-full h-full bg-slate-950 dark:bg-black light:bg-white rounded-[11px] flex items-center justify-center">
+              <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-sm tracking-tight">
+                YT
               </span>
             </div>
-          </a>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold text-slate-100 dark:text-white light:text-slate-900 tracking-tight text-base group-hover:text-cyan-400 transition-colors">
+              Yasmeen Taj
+            </span>
+            <span className="text-[10px] text-slate-400 dark:text-slate-400 light:text-slate-500 font-mono tracking-wider -mt-1 uppercase">
+              Backend & Cloud
+            </span>
+          </div>
+        </a>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-slate-900/60 p-1 rounded-full border border-slate-800/80 backdrop-blur-sm">
-            {navLinks.map((link) => {
-              const sectionId = link.href.substring(1);
-              const isActive = activeSection === sectionId;
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shadow-sm'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-                  }`}
-                >
-                  {link.name}
-                </a>
-              );
-            })}
-          </nav>
-
-          {/* Actions: Resume CTA + Socials */}
-          <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={onOpenResume}
-              className="flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 hover:text-white hover:border-cyan-500/50 hover:bg-slate-800 transition-all cursor-pointer shadow-sm"
-              title="View & Download Resume"
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-1 bg-slate-900/60 dark:bg-zinc-900/60 light:bg-slate-100/80 px-3 py-1.5 rounded-full border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200/80 backdrop-blur-md">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="px-3 py-1.5 text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-600 hover:text-cyan-400 dark:hover:text-cyan-400 light:hover:text-cyan-600 rounded-full transition-all hover:bg-slate-800/50 dark:hover:bg-zinc-800/50 light:hover:bg-white/80"
             >
-              <FileText className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Resume</span>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        {/* Actions (Language, Theme Toggle, Resume, Contact) */}
+        <div className="hidden lg:flex items-center gap-2.5">
+          
+          {/* Language Switcher Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 dark:bg-zinc-900 light:bg-slate-100 border border-slate-800 dark:border-zinc-800 light:border-slate-200 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:border-cyan-500/50 transition-all"
+              title={t("header.language")}
+            >
+              <Globe className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="uppercase font-semibold">{language}</span>
             </button>
 
-            <a
-              href={`mailto:${PERSONAL_INFO.email}`}
-              className="flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold hover:brightness-110 transition-all shadow-md shadow-cyan-500/20"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Hire Me</span>
-            </a>
+            {langDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-36 bg-slate-900 dark:bg-zinc-900 light:bg-white border border-slate-800 dark:border-zinc-800 light:border-slate-200 rounded-xl shadow-xl py-1 z-50 backdrop-blur-xl">
+                {languages.map((item) => (
+                  <button
+                    key={item.code}
+                    onClick={() => {
+                      setLanguage(item.code);
+                      setLangDropdownOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-1.5 text-xs text-left ${
+                      language === item.code
+                        ? 'text-cyan-400 font-semibold bg-cyan-500/10'
+                        : 'text-slate-300 dark:text-slate-300 light:text-slate-700 hover:bg-slate-800 dark:hover:bg-zinc-800 light:hover:bg-slate-100'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-sm">{item.flag}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Theme Switcher Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg bg-slate-900/80 dark:bg-zinc-900 light:bg-slate-100 border border-slate-800 dark:border-zinc-800 light:border-slate-200 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-cyan-400 dark:hover:text-cyan-400 light:hover:text-cyan-600 hover:border-cyan-500/50 transition-all"
+            title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-4 h-4 text-amber-400" />
+            ) : (
+              <Moon className="w-4 h-4 text-slate-700" />
+            )}
+          </button>
+
+          {/* Resume Modal Trigger Button */}
+          <button
+            onClick={onOpenResume}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 dark:border-zinc-700 light:border-slate-300 bg-slate-900/60 dark:bg-zinc-900 light:bg-white text-slate-200 dark:text-slate-200 light:text-slate-800 hover:border-cyan-500/80 hover:text-cyan-400 transition-all shadow-sm"
+          >
+            <FileText className="w-3.5 h-3.5 text-cyan-400" />
+            <span>{t("header.resume")}</span>
+          </button>
+
+          {/* Direct Gmail Compose CTA Link */}
+          <a
+            href={GMAIL_COMPOSE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/35 transition-all transform hover:-translate-y-0.5"
+            title={t("hero.secureContactTooltip")}
+          >
+            <Mail className="w-3.5 h-3.5" />
+            <span>{t("header.hireMe")}</span>
+          </a>
+        </div>
+
+        {/* Mobile Menu Toggle button */}
+        <div className="flex md:hidden items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg bg-slate-900 dark:bg-zinc-900 light:bg-slate-100 border border-slate-800 dark:border-zinc-800 light:border-slate-200 text-slate-300 dark:text-slate-300 light:text-slate-700"
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
+          </button>
+
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700"
-            aria-label="Toggle menu"
+            className="p-2 rounded-lg bg-slate-900 dark:bg-zinc-900 light:bg-slate-100 border border-slate-800 dark:border-zinc-800 light:border-slate-200 text-slate-300 dark:text-slate-300 light:text-slate-700"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -128,35 +175,60 @@ export const Header: React.FC<HeaderProps> = ({ onOpenResume }) => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-slate-950/95 border-b border-slate-800/80 backdrop-blur-xl px-4 pt-3 pb-6 mt-2 shadow-2xl animate-in slide-in-from-top duration-200">
-          <div className="flex flex-col gap-2">
+        <div className="md:hidden bg-slate-950 dark:bg-black light:bg-white border-b border-slate-800 dark:border-zinc-800 light:border-slate-200 px-4 py-4 space-y-3">
+          <div className="grid grid-cols-2 gap-2 pb-2">
             {navLinks.map((link) => (
               <a
-                key={link.name}
+                key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-900 hover:text-cyan-400 transition-colors"
+                className="px-3 py-2 text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-700 bg-slate-900/60 dark:bg-zinc-900 light:bg-slate-100 rounded-lg"
               >
-                {link.name}
+                {link.label}
               </a>
             ))}
-            <div className="pt-3 mt-2 border-t border-slate-800/80 flex flex-col gap-2">
+          </div>
+
+          <div className="pt-2 border-t border-slate-800 dark:border-zinc-800 light:border-slate-200 flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-slate-400">{t("header.language")}:</span>
+              <div className="flex gap-1">
+                {languages.map((item) => (
+                  <button
+                    key={item.code}
+                    onClick={() => setLanguage(item.code)}
+                    className={`px-2 py-1 text-xs rounded ${
+                      language === item.code
+                        ? 'bg-cyan-500 text-white font-bold'
+                        : 'bg-slate-900 dark:bg-zinc-900 text-slate-300'
+                    }`}
+                  >
+                    {item.code.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 pt-2">
               <button
                 onClick={() => {
-                  setMobileMenuOpen(false);
                   onOpenResume();
+                  setMobileMenuOpen(false);
                 }}
-                className="w-full flex items-center justify-center gap-2 text-xs font-semibold py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 hover:bg-slate-800"
+                className="flex-1 py-2 rounded-lg text-xs font-semibold border border-slate-700 dark:border-zinc-700 light:border-slate-300 bg-slate-900 dark:bg-zinc-900 light:bg-slate-100 text-slate-200 dark:text-slate-200 light:text-slate-800 flex items-center justify-center gap-1.5"
               >
-                <FileText className="w-4 h-4 text-cyan-400" />
-                <span>View Resume</span>
+                <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                <span>{t("header.resume")}</span>
               </button>
+
               <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                className="w-full flex items-center justify-center gap-2 text-xs font-bold py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-md shadow-cyan-500/20"
+                href={GMAIL_COMPOSE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 py-2 rounded-lg text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-center flex items-center justify-center gap-1.5"
               >
-                <Mail className="w-4 h-4" />
-                <span>Contact Yasmeen</span>
+                <Mail className="w-3.5 h-3.5" />
+                <span>{t("header.hireMe")}</span>
               </a>
             </div>
           </div>

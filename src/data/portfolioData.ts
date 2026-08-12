@@ -1,215 +1,178 @@
 import { Project, SkillGroup, Experience, LeadershipRole } from '../types';
 
+export const GMAIL_COMPOSE_URL = "https://mail.google.com/mail/?view=cm&fs=1&to=yasmeentaj0114@gmail.com&su=Inquiry%20via%20Portfolio";
+
 export const PERSONAL_INFO = {
   name: "Yasmeen Taj",
-  title: "Backend Engineer | Cloud & AI Practitioner",
-  subheadline: "Final-year CS student specialized in building robust backend systems, deploying scalable cloud infrastructure, and integrating AI/ML solutions.",
-  email: "yasmeentaj0114@gmail.com",
-  github: "https://github.com/yasmeentaj",
+  locationKey: "hero.location",
+  locationText: "Mysuru, India",
+  headlineKey: "hero.headline",
+  subheadlineKey: "hero.subheadline",
+  statusBadgeKey: "hero.statusBadge",
+  github: "https://github.com/Yasmeen-T",
   linkedin: "https://linkedin.com/in/yasmeentaj",
-  location: "Bengaluru, India",
-  status: "Available for Full-time Roles (2026 Batch)",
+  gmailComposeUrl: GMAIL_COMPOSE_URL,
+  credly1: "https://www.credly.com/users/yasmeen-taj.1",
+  credly2: "https://www.credly.com/users/yasmeen-taj01",
 };
 
 export const SKILL_GROUPS: SkillGroup[] = [
   {
-    category: "Languages",
+    id: "languages",
+    categoryKey: "skills.catLanguages",
     iconName: "Code2",
-    description: "Core programming languages for algorithmic backend logic & systems programming.",
+    descriptionKey: "skills.catLanguagesDesc",
     skills: ["Java", "Python", "C", "SQL", "JavaScript", "HTML5", "CSS3"]
   },
   {
-    category: "Backend & Web",
+    id: "backend",
+    categoryKey: "skills.catBackend",
     iconName: "Server",
-    description: "High-performance microservices, RESTful interfaces & data orchestration.",
-    skills: ["REST APIs", "FastAPI", "CRUD", "JSON", "API Integration"]
+    descriptionKey: "skills.catBackendDesc",
+    skills: ["REST APIs", "FastAPI", "CRUD", "JSON", "API Integration", "Node.js", "Express"]
   },
   {
-    category: "Cloud Infrastructure",
+    id: "cloud",
+    categoryKey: "skills.catCloud",
     iconName: "Cloud",
-    description: "Scalable cloud services, virtual private clouds, IAM security & cloud computing.",
+    descriptionKey: "skills.catCloudDesc",
     skills: ["AWS EC2", "AWS S3", "AWS IAM", "Amazon VPC", "AWS Cloud", "AWS PartyRock"]
   },
   {
-    category: "AI & Machine Learning",
+    id: "ai",
+    categoryKey: "skills.catAI",
     iconName: "BrainCircuit",
-    description: "Generative AI, retrieval augmented generation, embeddings & ML pipelines.",
-    skills: ["Machine Learning", "Generative AI", "Prompt Engineering", "LLMs", "RAG", "LangChain", "Vector Search"]
+    descriptionKey: "skills.catAIDesc",
+    skills: ["Machine Learning", "Generative AI", "Prompt Engineering", "LLMs", "RAG", "LangChain", "Vector Search", "Gemini AI"]
   },
   {
-    category: "Databases",
+    id: "databases",
+    categoryKey: "skills.catDatabases",
     iconName: "Database",
-    description: "Relational schema design, index optimization & real-time document stores.",
-    skills: ["MySQL", "Firebase"]
+    descriptionKey: "skills.catDatabasesDesc",
+    skills: ["MySQL", "Firebase", "MongoDB"]
   },
   {
-    category: "Developer Tools",
+    id: "tools",
+    categoryKey: "skills.catTools",
     iconName: "Wrench",
-    description: "Version control, Linux environments, API testing & cloud deployment pipelines.",
+    descriptionKey: "skills.catToolsDesc",
     skills: ["Git", "GitHub", "Linux", "VS Code", "Postman", "Render", "Vercel"]
   },
   {
-    category: "Core Computer Science",
+    id: "cs",
+    categoryKey: "skills.catCS",
     iconName: "Cpu",
-    description: "Foundational CS principles, object-oriented architecture & system design.",
+    descriptionKey: "skills.catCSDesc",
     skills: ["Data Structures", "Algorithms", "OOP", "DBMS", "Operating Systems", "Computer Networks", "System Design"]
   }
 ];
 
 export const EXPERIENCES: Experience[] = [
   {
-    title: "Android Development Intern",
-    organization: "Oasis Infobyte (AICTE Program)",
-    period: "Aug 2026 - Sep 2026",
-    type: "Internship",
-    points: [
-      "Engineered high-performance native Android application components adhering to AICTE technical standards.",
-      "Optimized client-server API communication protocols for low-latency state synchronization.",
-      "Implemented background threading routines and local storage caching to improve application responsiveness by 30%."
-    ],
-    techTags: ["Java", "Android SDK", "REST APIs", "JSON", "Git"]
+    id: "python-intern",
+    titleKey: "exp.pythonTitle",
+    organizationKey: "exp.pythonOrg",
+    periodKey: "exp.pythonPeriod",
+    typeKey: "Internship",
+    githubRepo: "https://github.com/Yasmeen-T/CODSOFT",
+    techTags: ["Python", "Algorithms", "Git"]
   },
   {
-    title: "Web Development Intern",
-    organization: "Oasis Infobyte",
-    period: "May 2026 - Jul 2026",
-    type: "Internship",
-    points: [
-      "Designed and deployed responsive web interfaces with modular frontend components and backend integrations.",
-      "Developed secure client-side form validation and seamless RESTful API ingestion layers.",
-      "Collaborated on database query optimization and cross-browser testing to ensure fast load times."
-    ],
-    techTags: ["JavaScript", "HTML5", "CSS3", "REST APIs", "Postman"]
+    id: "android-intern",
+    titleKey: "exp.androidTitle",
+    organizationKey: "exp.androidOrg",
+    periodKey: "exp.androidPeriod",
+    typeKey: "Internship",
+    githubRepo: "https://github.com/Yasmeen-T/OIBSIP",
+    techTags: ["Java", "Android SDK", "REST APIs"]
   },
   {
-    title: "Machine Learning Track",
-    organization: "July 2026 Cohort",
-    period: "July 2026",
-    type: "Cohort Program",
-    points: [
-      "Developed and evaluated supervised ML classification and regression models using Python libraries.",
-      "Explored Generative AI capabilities, prompt engineering techniques, and RAG architectures with vector embeddings.",
-      "Built end-to-end data processing pipelines for feature engineering and performance benchmarking."
-    ],
-    techTags: ["Python", "Machine Learning", "LLMs", "LangChain", "RAG", "Vector Search"]
+    id: "web-intern",
+    titleKey: "exp.webTitle",
+    organizationKey: "exp.webOrg",
+    periodKey: "exp.webPeriod",
+    typeKey: "Internship",
+    techTags: ["JavaScript", "HTML5", "CSS3", "REST APIs"]
   },
   {
-    title: "MERN Stack Developer Intern",
-    organization: "Codec Technology",
-    period: "Feb 2026 - Apr 2026",
-    type: "Internship",
-    points: [
-      "Architected backend microservices with Express and Node.js for RESTful CRUD endpoint management.",
-      "Integrated MongoDB/Firebase database layers with strict schema validations and indexed relational queries.",
-      "Implemented JWT authentication and CORS security headers for robust client-server communications."
-    ],
-    techTags: ["Node.js", "Express", "Firebase", "REST APIs", "JavaScript", "JSON"]
+    id: "ml-track",
+    titleKey: "exp.mlTitle",
+    organizationKey: "exp.mlOrg",
+    periodKey: "exp.mlPeriod",
+    typeKey: "Cohort Program",
+    techTags: ["Python", "Machine Learning", "RAG", "LLMs"]
   },
   {
-    title: "Python Programming Intern",
-    organization: "Codsoft",
-    period: "Nov 2025 - Dec 2025",
-    type: "Internship",
-    points: [
-      "Constructed modular Python automation scripts and object-oriented software utilities.",
-      "Applied key data structures (hash maps, trees, queues) to solve complex computational problems cleanly.",
-      "Maintained strict version control practices using Git and structured unit test suites."
-    ],
-    techTags: ["Python", "Data Structures", "Algorithms", "OOP", "Git"]
+    id: "mern-intern",
+    titleKey: "exp.mernTitle",
+    organizationKey: "exp.mernOrg",
+    periodKey: "exp.mernPeriod",
+    typeKey: "Internship",
+    techTags: ["Node.js", "Express", "Firebase", "MongoDB", "REST APIs"]
   }
 ];
 
 export const PROJECTS: Project[] = [
   {
-    id: "bitebot",
-    title: "BiteBot",
-    subtitle: "AI-Powered Food Delivery Assistant",
-    category: "AI/ML",
-    description: "An intelligent AI assistant for food delivery workflows, powered by Python/FastAPI, LangChain, and RAG for contextual order recommendations and instant query handling.",
-    longDescription: "BiteBot bridges the gap between conversational AI and food ordering logistics. Built with a FastAPI backend server, it leverages retrieval-augmented generation (RAG) to understand dietary preferences, parse menu items intelligently, and execute simulated checkout APIs in real time.",
-    tags: ["FastAPI", "Python", "LangChain", "RAG", "Generative AI", "Firebase", "AWS"],
-    githubUrl: "https://github.com/yasmeentaj/BiteBot",
-    demoUrl: "https://bitebot-demo.render.com",
-    demoLabel: "Live Demo",
-    architectureDetails: {
-      overview: "Async FastAPI backend connecting LangChain agent workflows with a Firebase vector store and real-time order processing pipeline.",
-      highlights: [
-        "Sub-150ms semantic search across 5,000+ restaurant items using vector embeddings.",
-        "Custom prompt routing pipeline for handling order modifications, allergies, and price filtering.",
-        "Asynchronous webhook handlers for order lifecycle events and status updates."
-      ],
-      endpoints: [
-        "POST /api/v1/bot/chat - Conversational order intent parser",
-        "GET /api/v1/recommendations - Vector search based food matching",
-        "POST /api/v1/orders/checkout - Real-time order dispatch service"
-      ],
-      techStack: [
-        { name: "FastAPI", role: "High-concurrency Python ASGI Web Framework" },
-        { name: "LangChain & RAG", role: "Orchestration & Vector Query Processing" },
-        { name: "Firebase Firestore", role: "Persistent Order & User Preference Storage" },
-        { name: "AWS EC2 / Render", role: "Containerized Cloud Deployment" }
-      ]
-    }
-  },
-  {
-    id: "realtime-detection",
-    title: "AI-Driven Real-Time Detection System",
-    subtitle: "High-Throughput Computer Vision & ML Pipeline",
-    category: "AI/ML",
-    description: "Major academic project focusing on applied machine learning and scalable system architecture for low-latency real-time detection and automated anomaly alerting.",
-    longDescription: "Designed to process streaming visual and telemetry data feeds with minimal latency. Built on a modular Python architecture deployed on AWS EC2, featuring automated feature extraction, model inference optimization, and containerized microservice execution.",
-    tags: ["Python", "Machine Learning", "System Design", "AWS EC2", "FastAPI", "OpenCV"],
-    githubUrl: "https://github.com/yasmeentaj/AI-RealTime-Detection",
+    id: "cognivouch",
+    titleKey: "proj.cognivouchTitle",
+    subtitleKey: "proj.cognivouchSubtitle",
+    category: "Backend",
+    descriptionKey: "proj.cognivouchDesc",
+    longDescriptionKey: "proj.cognivouchLongDesc",
+    tags: ["Verification Protocol", "React", "Node.js", "REST APIs", "OAuth", "Student Achievements"],
+    githubUrl: "https://github.com/Yasmeen-T/CogniVouch",
     demoUrl: "#architecture-modal",
-    demoLabel: "View Architecture",
+    demoLabelKey: "projects.viewArchBtn",
     architectureDetails: {
-      overview: "Modular real-time processing pipeline using optimized inference loops, shared memory buffers, and REST push notifications.",
-      highlights: [
-        "Low latency frame processing pipeline (<45ms per frame throughput).",
-        "Deployed inside isolated Amazon VPC subnets with AWS IAM role-based security.",
-        "Automated alerting webhooks triggered upon threshold anomaly detection."
+      overviewKey: "proj.cognivouchArchOverview",
+      highlightsKeys: [
+        "Real-time insights across student achievement proofs, faculty audit rates, departmental skill coverage, and institutional credentials.",
+        "Cryptographically verifiable badge & certificate submission workflow.",
+        "Role-based faculty approval gateway with automated audit trails."
       ],
       endpoints: [
-        "WS /ws/stream - Real-time telemetry feed consumer",
-        "POST /api/v1/detect - Frame inference payload pipeline",
-        "GET /api/v1/metrics/health - System load and latency health check"
+        "POST /api/v1/vouch/submit - Student credential proof ingestion",
+        "GET /api/v1/vouch/verify - Faculty verification status lookup",
+        "GET /api/v1/badges/student - Verified achievement portfolio ledger"
       ],
       techStack: [
-        { name: "Python / OpenCV", role: "Real-time stream frame processing" },
-        { name: "PyTorch / ML Models", role: "Optimized Inference Engine" },
-        { name: "AWS EC2 & VPC", role: "Cloud Infrastructure Hosting" },
-        { name: "FastAPI", role: "API Gateway & WebSockets server" }
+        { name: "Node.js / Express", roleKey: "Verification Service Backend" },
+        { name: "React / Vite", roleKey: "Student & Faculty Interface" },
+        { name: "MongoDB", roleKey: "Proof & Credentials Store" },
+        { name: "OAuth 2.0", roleKey: "Identity & Access Control" }
       ]
     }
   },
   {
-    id: "business-infrastructure",
-    title: "Small Business Infrastructure",
-    subtitle: "Cloud VPC, Resource & Operations Architecture",
-    category: "Cloud",
-    description: "Managed operations, vendor technology stack, and resource distribution infrastructure for a collaborative business venture using AWS Cloud tools.",
-    longDescription: "A comprehensive cloud infrastructure blueprint and management framework designed for small business reliability. Configured isolated Amazon VPC networks, S3 storage buckets with strict IAM access policies, MySQL relational databases, and automated backup routines.",
-    tags: ["AWS Cloud", "Amazon VPC", "AWS S3", "AWS IAM", "MySQL", "Linux", "REST APIs"],
-    githubUrl: "https://github.com/yasmeentaj/SmallBusiness-CloudInfra",
-    demoUrl: "https://biz-infra.vercel.app",
-    demoLabel: "Live Demo",
+    id: "bitebot",
+    titleKey: "proj.bitebotTitle",
+    subtitleKey: "proj.bitebotSubtitle",
+    category: "AI/ML",
+    descriptionKey: "proj.bitebotDesc",
+    longDescriptionKey: "proj.bitebotLongDesc",
+    tags: ["React", "Firebase", "Gemini AI", "RAG", "FastAPI", "PDF Analysis", "Live Order Tracking"],
+    githubUrl: "https://github.com/Yasmeen-T/BiteBot-Food-Delivery-Assistant",
+    demoUrl: "https://bitebot-demo.render.com",
+    demoLabelKey: "projects.liveDemoBtn",
     architectureDetails: {
-      overview: "Multi-AZ Amazon VPC setup with public/private subnets, NAT Gateways, and secure IAM user access roles.",
-      highlights: [
-        "Zero-trust IAM policy design with least-privilege resource access.",
-        "Automated MySQL database backup scripts syncing to encryption-at-rest AWS S3.",
-        "Optimized resource distribution lowering cloud operation overhead by 40%."
+      overviewKey: "proj.bitebotArchOverview",
+      highlightsKeys: [
+        "Strict RAG-based FAQ handling for instant menu & policy inquiries.",
+        "Live database order tracking & dynamic order modification pipeline.",
+        "PDF document analysis engine for automated menu & dietary parsing."
       ],
       endpoints: [
-        "GET /api/v1/inventory - Resource allocation ledger",
-        "POST /api/v1/vendors - Operational endpoint ingestion",
-        "GET /api/v1/infra/status - Cloud resource monitor"
+        "POST /api/v1/bot/chat - Conversational intent parser with RAG",
+        "GET /api/v1/orders/track - Real-time Firebase database order status",
+        "POST /api/v1/menu/pdf-analyze - Document ingestion & feature extraction"
       ],
       techStack: [
-        { name: "Amazon VPC", role: "Isolated Network Topography" },
-        { name: "AWS S3 & IAM", role: "Secure Encrypted Object Storage & Auth" },
-        { name: "MySQL", role: "Relational Ledger Database" },
-        { name: "Linux Shell", role: "Automated Operational Scripting" }
+        { name: "React & Gemini AI", roleKey: "Conversational UI & LLM Synthesis" },
+        { name: "Firebase", roleKey: "Real-time Database & Authentication" },
+        { name: "FastAPI & RAG", roleKey: "Vector Retrieval & Backend Microservice" },
+        { name: "Python / PyPDF", roleKey: "Menu PDF Analysis Engine" }
       ]
     }
   }
@@ -217,21 +180,22 @@ export const PROJECTS: Project[] = [
 
 export const LEADERSHIP: LeadershipRole[] = [
   {
-    role: "Director of Events",
-    organization: "AWS Student Builder Group",
-    description: "Spearheaded technical workshops, hands-on AWS cloud labs, and architecture hackathons for 300+ university students. Guided peers on AWS EC2, S3, IAM, and serverless concepts.",
+    id: "director",
+    roleKey: "leadership.directorRole",
+    credentialUrl: "https://www.credly.com/badges/5a98b63d-4548-4ff6-b438-ad9865dd168f",
     icon: "CloudLightning"
   },
   {
-    role: "2026 Google Student Ambassador",
-    organization: "Google Developer Community",
-    description: "Selected to represent Google developer technologies on campus. Organized technical workshops on Generative AI, Google Cloud, and Android app development fundamentals.",
+    id: "ambassador",
+    roleKey: "leadership.ambassadorRole",
+    credentialUrl: "https://drive.google.com/file/d/1QY2TshCeN9sH_avUVV2Wl8mVdSL5SB7B/view",
     icon: "Award"
   },
   {
-    role: "DevOps Bootcamp Graduate",
-    organization: "April 2026 Cohort",
-    description: "Completed intensive training in Linux administration, Docker containerization, CI/CD pipeline automation, infrastructure provisioning, and cloud deployment practices.",
+    id: "devops",
+    roleKey: "leadership.devopsRole",
+    credentialUrl: "https://credsverse.com/credentials/111df5f2-f624-4240-83fb-6c33df6f5b23",
     icon: "Terminal"
   }
 ];
+

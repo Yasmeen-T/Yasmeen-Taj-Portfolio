@@ -1,43 +1,47 @@
+export type Language = 'en' | 'kn' | 'hi' | 'tr' | 'es' | 'fr' | 'de' | 'ar' | 'ja';
+export type Theme = 'dark' | 'light';
+
 export interface Project {
   id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  longDescription: string;
+  titleKey: string;
+  subtitleKey: string;
+  descriptionKey: string;
+  longDescriptionKey: string;
   tags: string[];
   category: 'AI/ML' | 'Cloud' | 'Backend';
   githubUrl: string;
   demoUrl?: string;
-  demoLabel: string; // "Live Demo" or "View Architecture"
+  demoLabelKey: string;
   architectureDetails: {
-    overview: string;
-    highlights: string[];
+    overviewKey: string;
+    highlightsKeys: string[];
     endpoints?: string[];
-    techStack: { name: string; role: string }[];
+    techStack: { name: string; roleKey: string }[];
   };
 }
 
 export interface SkillGroup {
-  category: string;
+  id: string;
+  categoryKey: string;
   iconName: string;
-  description: string;
+  descriptionKey: string;
   skills: string[];
 }
 
 export interface Experience {
-  title: string;
-  organization: string;
-  subTitle?: string;
-  period: string;
-  type: string;
-  points: string[];
-  techTags: string[];
+  id: string;
+  titleKey: string;
+  organizationKey: string;
+  periodKey: string;
+  typeKey: string;
+  githubRepo?: string;
+  techTags?: string[];
 }
 
 export interface LeadershipRole {
-  role: string;
-  organization: string;
-  period?: string;
-  description: string;
+  id: string;
+  roleKey: string;
+  credentialUrl: string;
   icon: string;
 }
+

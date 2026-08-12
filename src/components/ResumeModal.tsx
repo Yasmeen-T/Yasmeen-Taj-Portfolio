@@ -1,6 +1,18 @@
-import React, { useState } from 'react';
-import { PERSONAL_INFO, SKILL_GROUPS, EXPERIENCES, PROJECTS, LEADERSHIP } from '../data/portfolioData';
-import { X, Printer, Download, Mail, Github, Linkedin, CheckCircle2, Briefcase, GraduationCap, Award, Check, Sparkles } from 'lucide-react';
+import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { GMAIL_COMPOSE_URL, PERSONAL_INFO } from '../data/portfolioData';
+import { 
+  X, 
+  Download, 
+  FileText, 
+  CheckCircle2, 
+  Building2, 
+  GraduationCap, 
+  Briefcase, 
+  Award,
+  Mail,
+  ExternalLink
+} from 'lucide-react';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -8,193 +20,184 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
-  const [downloading, setDownloading] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
+  const { t } = useLanguage();
 
   if (!isOpen) return null;
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   const handleDownload = () => {
-    setDownloading(true);
-    setTimeout(() => {
-      setDownloading(false);
-      setDownloaded(true);
-      setTimeout(() => setDownloaded(false), 3000);
-    }, 1200);
+    // Generate a clean text version or trigger PDF download simulation
+    const content = `YASMEEN TAJ
+Software Engineer | Backend, Cloud & AI Practitioner
+Location: Mysuru, India
+Portfolio: https://github.com/Yasmeen-T
+
+EDUCATION
+Final-year Computer Science & Engineering Student
+
+TECHNICAL SKILLS
+Languages: Java, Python, C, SQL, JavaScript, HTML5, CSS3
+Backend: REST APIs, FastAPI, Microservices, CRUD, Express, Node.js
+Cloud & Infra: AWS EC2, AWS S3, AWS IAM, Amazon VPC, AWS Cloud
+AI & ML: Machine Learning, Generative AI, Prompt Engineering, LLMs, RAG, LangChain
+Databases: MySQL, Firebase, MongoDB
+
+INTERNSHIPS & EXPERIENCE
+- Android Development Intern | Oasis Infobyte (AICTE)
+- Web Development Intern | Oasis Infobyte
+- Machine Learning Track | July 2026 Cohort
+- MERN Stack Developer Intern | Codec Technology
+- Python Programming Intern | Codsoft
+
+LEADERSHIP & RECOGNITION
+- Director of Events | AWS Student Builder Group
+- 2025 Google Student Ambassador | Google Developer Community
+- DevOps Bootcamp Graduate | April 2026 Cohort
+`;
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Yasmeen_Taj_Software_Engineer_Resume.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div
-        className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-4xl max-h-[92vh] overflow-y-auto shadow-2xl relative flex flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header Bar */}
-        <div className="sticky top-0 bg-slate-950/95 backdrop-blur-md px-6 py-4 border-b border-slate-800 flex items-center justify-between z-10">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            <h3 className="text-base sm:text-lg font-extrabold text-white">Yasmeen Taj — Official Curriculum Vitae</h3>
-          </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+      <div className="relative w-full max-w-3xl bg-slate-900 dark:bg-zinc-900 light:bg-white border border-slate-800 dark:border-zinc-800 light:border-slate-300 rounded-3xl p-6 sm:p-8 shadow-2xl my-8">
+        
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 dark:bg-zinc-800 light:bg-slate-100 text-slate-400 hover:text-slate-100 hover:bg-slate-700 transition-all"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold hover:border-slate-700 transition-colors"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Print / Save PDF</span>
-            </button>
-
-            <button
-              onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 text-xs font-bold hover:brightness-110 transition-colors"
-            >
-              {downloading ? (
-                <span className="animate-spin text-slate-950">⏳</span>
-              ) : downloaded ? (
-                <Check className="w-3.5 h-3.5" />
-              ) : (
-                <Download className="w-3.5 h-3.5" />
-              )}
-              <span>{downloaded ? 'Downloaded!' : 'Download Resume'}</span>
-            </button>
-
-            <button
-              onClick={onClose}
-              className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition-colors ml-2"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5" />
-            </button>
+        {/* Modal Title */}
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+              <FileText className="w-6 h-6" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-extrabold text-slate-100 dark:text-white light:text-slate-900">
+                Curriculum Vitae / Resume
+              </h2>
+              <p className="text-xs font-semibold text-cyan-400 mt-0.5">
+                Yasmeen Taj • Software Engineer
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Resume Content Body */}
-        <div className="p-6 sm:p-8 space-y-8 bg-slate-900 text-slate-200">
+        {/* Resume Preview Box */}
+        <div className="bg-slate-950 dark:bg-black light:bg-slate-50 p-6 rounded-2xl border border-slate-800 dark:border-zinc-800 light:border-slate-200 text-xs sm:text-sm text-slate-300 dark:text-slate-300 light:text-slate-700 space-y-6 max-h-[450px] overflow-y-auto custom-scrollbar font-sans">
           
-          {/* Resume Header */}
-          <div className="border-b border-slate-800 pb-6">
-            <h1 className="text-3xl font-extrabold text-white tracking-tight">{PERSONAL_INFO.name}</h1>
-            <h2 className="text-base font-semibold text-cyan-400 mt-1">{PERSONAL_INFO.title}</h2>
-            
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono text-slate-400 mt-3">
-              <a href={`mailto:${PERSONAL_INFO.email}`} className="hover:text-cyan-300 flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5 text-cyan-400" />
-                <span>{PERSONAL_INFO.email}</span>
-              </a>
-              <a href={PERSONAL_INFO.github} target="_blank" rel="noreferrer" className="hover:text-cyan-300 flex items-center gap-1.5">
-                <Github className="w-3.5 h-3.5 text-slate-400" />
-                <span>github.com/yasmeentaj</span>
-              </a>
-              <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noreferrer" className="hover:text-cyan-300 flex items-center gap-1.5">
-                <Linkedin className="w-3.5 h-3.5 text-slate-400" />
-                <span>linkedin.com/in/yasmeentaj</span>
-              </a>
-            </div>
-            
-            <p className="text-xs text-slate-300 mt-4 leading-relaxed bg-slate-950/60 p-3 rounded-lg border border-slate-800/80">
-              {PERSONAL_INFO.subheadline}
+          {/* Header */}
+          <div className="border-b border-slate-800 dark:border-zinc-800 light:border-slate-200 pb-4">
+            <h3 className="text-lg font-bold text-slate-100 dark:text-white light:text-slate-900">
+              YASMEEN TAJ
+            </h3>
+            <p className="text-xs font-semibold text-cyan-400 mt-0.5">
+              Software Engineer | Backend, Cloud & AI Practitioner
+            </p>
+            <p className="text-[11px] text-slate-400 mt-1">
+              Mysuru, Karnataka, India • Available for Full-Time Roles
             </p>
           </div>
 
           {/* Education */}
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-cyan-400 tracking-wider mb-3 pb-1 border-b border-slate-800">
-              <GraduationCap className="w-4 h-4" />
-              <span>Education</span>
-            </div>
-            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800/80 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <div>
-                <h3 className="text-sm font-bold text-white">Bachelor of Engineering / Technology in Computer Science</h3>
-                <p className="text-xs text-slate-400 font-medium">Final-Year CS Student | Specialized in Backend, Cloud & AI</p>
+            <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+              <GraduationCap className="w-4 h-4 text-cyan-400" /> Education
+            </h4>
+            <div className="p-3 rounded-xl bg-slate-900/80 dark:bg-zinc-900 light:bg-white border border-slate-800 dark:border-zinc-800 light:border-slate-200">
+              <div className="font-bold text-slate-200 dark:text-slate-200 light:text-slate-900">
+                Bachelor of Engineering in Computer Science & Engineering
               </div>
-              <span className="text-xs font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-2.5 py-1 rounded w-fit">
-                Graduation: 2026 Batch
-              </span>
+              <div className="text-xs text-slate-400 mt-0.5">
+                Final Year Student • Mysuru, India
+              </div>
             </div>
           </div>
 
           {/* Technical Skills Summary */}
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-cyan-400 tracking-wider mb-3 pb-1 border-b border-slate-800">
-              <Award className="w-4 h-4" />
-              <span>Technical Skills Overview</span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              {SKILL_GROUPS.map((group) => (
-                <div key={group.category} className="p-3 rounded-lg bg-slate-950 border border-slate-800">
-                  <span className="font-bold text-slate-200 block mb-1 text-xs">{group.category}:</span>
-                  <p className="text-slate-400 font-mono text-[11px]">{group.skills.join(', ')}</p>
-                </div>
-              ))}
+            <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-cyan-400" /> Core Technical Stack
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <div className="p-2.5 rounded-lg bg-slate-900/60 dark:bg-zinc-900 light:bg-white border border-slate-800 dark:border-zinc-800 light:border-slate-200">
+                <span className="font-bold text-cyan-400">Languages:</span> Java, Python, C, SQL, JavaScript
+              </div>
+              <div className="p-2.5 rounded-lg bg-slate-900/60 dark:bg-zinc-900 light:bg-white border border-slate-800 dark:border-zinc-800 light:border-slate-200">
+                <span className="font-bold text-blue-400">Backend:</span> REST APIs, FastAPI, Microservices, Express
+              </div>
+              <div className="p-2.5 rounded-lg bg-slate-900/60 dark:bg-zinc-900 light:bg-white border border-slate-800 dark:border-zinc-800 light:border-slate-200">
+                <span className="font-bold text-sky-400">Cloud:</span> AWS VPC, S3, IAM, EC2
+              </div>
+              <div className="p-2.5 rounded-lg bg-slate-900/60 dark:bg-zinc-900 light:bg-white border border-slate-800 dark:border-zinc-800 light:border-slate-200">
+                <span className="font-bold text-indigo-400">AI / ML:</span> LLMs, RAG, LangChain, Vector Search
+              </div>
             </div>
           </div>
 
           {/* Experience */}
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-cyan-400 tracking-wider mb-4 pb-1 border-b border-slate-800">
-              <Briefcase className="w-4 h-4" />
-              <span>Work Experience & Internships</span>
-            </div>
-            <div className="space-y-4">
-              {EXPERIENCES.map((exp, idx) => (
-                <div key={idx} className="p-4 rounded-xl bg-slate-950 border border-slate-800/80">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-                    <h4 className="text-sm font-bold text-white">{exp.title} — <span className="text-cyan-400">{exp.organization}</span></h4>
-                    <span className="text-[11px] font-mono text-slate-400">{exp.period}</span>
-                  </div>
-                  <ul className="space-y-1 text-xs text-slate-300">
-                    {exp.points.map((pt, pIdx) => (
-                      <li key={pIdx} className="flex items-start gap-2">
-                        <span className="text-cyan-400">•</span>
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Featured Projects */}
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-cyan-400 tracking-wider mb-3 pb-1 border-b border-slate-800">
-              <CheckCircle2 className="w-4 h-4" />
-              <span>Key Projects</span>
-            </div>
-            <div className="space-y-3">
-              {PROJECTS.map((proj) => (
-                <div key={proj.id} className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
-                  <div className="flex items-center justify-between font-bold text-slate-200 mb-1">
-                    <span>{proj.title} ({proj.subtitle})</span>
-                    <span className="font-mono text-[10px] text-cyan-400">{proj.category}</span>
-                  </div>
-                  <p className="text-slate-400 text-[11px] mb-2">{proj.description}</p>
-                  <p className="text-slate-500 font-mono text-[10px]">Tech: {proj.tags.join(' • ')}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Community Leadership */}
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-cyan-400 tracking-wider mb-3 pb-1 border-b border-slate-800">
-              <Sparkles className="w-4 h-4" />
-              <span>Leadership & Honors</span>
-            </div>
+            <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+              <Briefcase className="w-4 h-4 text-cyan-400" /> Key Internships
+            </h4>
             <div className="space-y-2 text-xs">
-              {LEADERSHIP.map((lead, idx) => (
-                <div key={idx} className="p-3 rounded-lg bg-slate-950 border border-slate-800">
-                  <span className="font-bold text-white">{lead.role}</span> — <span className="text-cyan-400 font-medium">{lead.organization}</span>
-                  <p className="text-slate-400 text-[11px] mt-1">{lead.description}</p>
+              <div className="p-3 rounded-xl bg-slate-900/80 dark:bg-zinc-900 light:bg-white border border-slate-800 dark:border-zinc-800 light:border-slate-200">
+                <div className="font-bold text-slate-200 dark:text-slate-200 light:text-slate-900">
+                  Android Development Intern — Oasis Infobyte (AICTE)
                 </div>
-              ))}
+                <div className="text-[11px] text-slate-400">Aug 2026 - Sep 2026</div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-900/80 dark:bg-zinc-900 light:bg-white border border-slate-800 dark:border-zinc-800 light:border-slate-200">
+                <div className="font-bold text-slate-200 dark:text-slate-200 light:text-slate-900">
+                  MERN Stack Developer Intern — Codec Technology
+                </div>
+                <div className="text-[11px] text-slate-400">Feb 2026 - Apr 2026</div>
+              </div>
             </div>
           </div>
 
+        </div>
+
+        {/* Modal Actions */}
+        <div className="mt-6 pt-4 border-t border-slate-800 dark:border-zinc-800 light:border-slate-200 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleDownload}
+              className="px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/20 flex items-center gap-2 transition-all"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download Resume (.txt)</span>
+            </button>
+
+            <a
+              href={GMAIL_COMPOSE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-xl text-xs font-semibold border border-slate-700 dark:border-zinc-700 light:border-slate-300 bg-slate-800 dark:bg-zinc-800 light:bg-slate-100 text-slate-200 dark:text-slate-200 light:text-slate-800 hover:border-cyan-500 hover:text-cyan-400 flex items-center gap-2 transition-all"
+            >
+              <Mail className="w-4 h-4 text-cyan-400" />
+              <span>Inquire via Gmail</span>
+            </a>
+          </div>
+
+          <button
+            onClick={onClose}
+            className="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 dark:bg-zinc-800 text-slate-300 hover:bg-slate-700 transition-all"
+          >
+            Close
+          </button>
         </div>
 
       </div>
